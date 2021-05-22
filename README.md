@@ -8,15 +8,14 @@ For reference, please follow the next steps:
 
 * In Eclipse, import the project as Maven project
 * Check the **Build Path** of the project is compiled with Java 8
-* Run the class **com.exercise.todoapi.TodoApiApplication** to execute the spring-boot project
-* If everything is fine, open the Swagger API documentation of this project located in [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
+* Run the class **com.exercise.todoapi.LibraryApiApplication** to execute the spring-boot project
+* If everything is fine, open the Swagger API documentation of this project located in [http://localhost:8090/swagger-ui.html](http://localhost:8090/swagger-ui.html)
 
 ### Guide to probe the API
 The following guides illustrate how to use some features concretely:
 
-* The project has 2 controllers:
+* The project has the following controller:
 * The main one, it's the **to-do-controller** that manages the to-do object
-* The second one, it's the **item-controller** that manages the items for each to-do collections
 * The authenticator one, it's the **authentication-controller** that manages the login and the logout of the application
 * The **/api/v1/login** is the method that generates the **token** to be used to invoke the other API methods 
 
