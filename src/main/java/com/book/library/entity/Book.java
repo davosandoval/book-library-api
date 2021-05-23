@@ -32,7 +32,7 @@ public class Book implements BaseEntity {
 	private String author;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="familyId")
+    @JoinColumn(name="family_id")
 	private Family family;
 
 	/**

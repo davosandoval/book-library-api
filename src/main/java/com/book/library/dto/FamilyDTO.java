@@ -1,7 +1,15 @@
 package com.book.library.dto;
 
+import javax.validation.constraints.NotBlank;
+
+import io.swagger.annotations.ApiModelProperty;
+
 public class FamilyDTO implements BaseDTO {
+	@ApiModelProperty(required = false, hidden = true)
 	private Integer id;
+	
+	@ApiModelProperty(required = true)
+	@NotBlank(message = "Genre/Family is mandatory")
 	private String genre;
 	/**
 	 * @return the id

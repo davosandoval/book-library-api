@@ -36,10 +36,10 @@ public class SpringFoxConfig {
 	
 	private ApiInfo apiInfo() {
 	    return new ApiInfoBuilder()
-	            .title("Book library REST API Document")
+	            .title("Book library REST API Documentation")
 	            .description("Description of Book library")
 	            .termsOfServiceUrl("localhost")
-	            .version("1.0")
+	            .version("1.1")
 	            .build();
 	}
 

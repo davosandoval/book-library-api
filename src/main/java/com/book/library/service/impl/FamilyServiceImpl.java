@@ -9,10 +9,12 @@ import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.book.library.dto.FamilyDTO;
 import com.book.library.entity.Family;
+import com.book.library.exception.DuplicatedResourceException;
 import com.book.library.repository.FamilyRepository;
 import com.book.library.service.ConverterMapper;
 import com.book.library.service.FamilyService;
@@ -58,7 +60,12 @@ public class FamilyServiceImpl implements FamilyService, ConverterMapper<FamilyD
 			LOG.info("Updating a family. ID: {}", familyDTO.getId());
 		}
 		Family family = convertToEntity(familyDTO);
-		family = familyRepository.save(family);
+		try{
+			family = familyRepository.save(family);
+		}catch(DataIntegrityViolationException e) {
+			LOG.error("Unique index or primary key violation. ID: {}", family.getId());
+			throw new DuplicatedResourceException("Unique index or primary key violation");
+		}
 		
 		return this.convertToDto(family);
 	}
