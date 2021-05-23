@@ -24,7 +24,7 @@ public class Family implements BaseEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@Column(name = "genre")
+	@Column(name = "genre", unique=true)
 	private String genre;
 
 	@OneToMany(mappedBy = "family", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)

@@ -1,6 +1,7 @@
 package com.book.library.security;
 
-import static com.book.library.util.UserRole.*;
+import static com.book.library.util.UserRole.OWNER;
+import static com.book.library.util.UserRole.VIEWER;
 
 import javax.crypto.SecretKey;
 
@@ -19,7 +20,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import com.book.library.jwt.JwtConfig;
 import com.book.library.jwt.JwtTokenVerifier;
 import com.book.library.jwt.JwtUsernameAndPasswordAuthenticationFilter;
-import com.book.library.service.BannedTokenService;
 import com.book.library.service.impl.ApplicationUserDetailsServiceImpl;
 /**
  * @author DSandoval
@@ -38,19 +38,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     
 	private JwtConfig jwtConfig;
 	
-	private BannedTokenService bannedTokenService;
 
     @Autowired
     public SecurityConfig(PasswordEncoder passwordEncoder,
     		ApplicationUserDetailsServiceImpl applicationUserService,
                                      SecretKey secretKey,
-                                     JwtConfig jwtConfig,
-                                     BannedTokenService bannedTokenService) {
+                                     JwtConfig jwtConfig) {
         this.passwordEncoder = passwordEncoder;
         this.applicationUserService = applicationUserService;
         this.secretKey = secretKey;
         this.jwtConfig = jwtConfig;
-        this.bannedTokenService = bannedTokenService;
     }
     
     @Override
@@ -61,7 +58,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                     .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .addFilter(new JwtUsernameAndPasswordAuthenticationFilter(authenticationManager(), jwtConfig, secretKey))
-                .addFilterAfter(new JwtTokenVerifier(secretKey, jwtConfig, bannedTokenService),JwtUsernameAndPasswordAuthenticationFilter.class)
+                .addFilterAfter(new JwtTokenVerifier(secretKey, jwtConfig),JwtUsernameAndPasswordAuthenticationFilter.class)
                 .authorizeRequests()
                 .antMatchers("/",
                 		"/h2/**",

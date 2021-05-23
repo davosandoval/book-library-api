@@ -3,6 +3,8 @@
  */
 package com.book.library.dto;
 
+import javax.validation.constraints.NotBlank;
+
 import io.swagger.annotations.ApiModelProperty;
 
 /**
@@ -10,8 +12,15 @@ import io.swagger.annotations.ApiModelProperty;
  *
  */
 public class BookDTO implements BaseDTO {
+	@ApiModelProperty(required = false, hidden = true)
 	private Integer id;
+	
+	@ApiModelProperty(required = true)
+	@NotBlank(message = "Title is mandatory")
 	private String title;
+	
+	@ApiModelProperty(required = true)
+	@NotBlank(message = "Author is mandatory")
 	private String author;
 	
 	@ApiModelProperty(required = false, hidden = true)

@@ -19,7 +19,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.book.library.exception.NotLegalStateException;
-import com.book.library.service.BannedTokenService;
 import com.google.common.base.Strings;
 
 import io.jsonwebtoken.Claims;
@@ -31,14 +30,11 @@ public class JwtTokenVerifier extends OncePerRequestFilter {
 
     private final SecretKey secretKey;
     private JwtConfig jwtConfig;
-    private BannedTokenService bannedTokenService;
 
     public JwtTokenVerifier(SecretKey secretKey,
-                            JwtConfig jwtConfig,
-                            BannedTokenService bannedTokenService) {
+                            JwtConfig jwtConfig) {
         this.secretKey = secretKey;
         this.jwtConfig = jwtConfig;
-        this.bannedTokenService = bannedTokenService;
     }
 
     @Override
@@ -54,9 +50,6 @@ public class JwtTokenVerifier extends OncePerRequestFilter {
 
         String token = authorizationHeader.replace(jwtConfig.getTokenPrefix(), "");
         
-        if(bannedTokenService.verifyIfTokenExists(token)) {
-        	throw new NotLegalStateException(String.format("Logged out token. Token %s cannot be trusted", token));
-        }
 
         try {
 
