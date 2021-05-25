@@ -29,7 +29,15 @@ For reference, please follow the next steps:
 
 `mvn docker:start`
 
+This command will show you the starter log with the Starter CONTAINER ID
+- To view the log trace, copy the CONTAINER ID and execute the following command:
+
+`docker logs --follow {CONTAINER_ID}`
+
 If everything is fine, open the Swagger API documentation of this project located in [http://localhost:8090/swagger-ui.html](http://localhost:8090/swagger-ui.html)
+
+- To stop the project, use the next command:
+`mvn docker:stop`
 
 # **Structure of the API**
 
